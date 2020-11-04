@@ -84,6 +84,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
+        /*
+
         MyApplication myApplication = new MyApplication();
         host = myApplication.getHost();
 
@@ -100,6 +102,7 @@ public class ProfileFragment extends Fragment {
         email = view.findViewById(R.id.profile_email);
         email.setText(myProfile.getEmail());
 
+         */
 
         view.findViewById(R.id.profile_logout_button).setOnClickListener(v->{
             Callable<Boolean> signup = this::LogOut;

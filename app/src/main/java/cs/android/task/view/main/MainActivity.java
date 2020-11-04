@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     private static String host;
     private int port = 50050;
     public static final String TOPIC = "topic/test";
-    private MQTT mqtt;
     private CallbackConnection connection;
     private MyNoteFragment myNoteFragement;
 
@@ -100,10 +99,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        setMyToken(bundle.getString("token"));
+//        setMyToken(bundle.getString("token"));
 
 
         //获取profile
+        /*
         ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port)
                 .usePlaintext().build();
         ProfileServiceGrpc.ProfileServiceBlockingStub profileBlockingStub = ProfileServiceGrpc.newBlockingStub(channel);
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("profile------------->", "onCreate: " + myProfile.getEmail() + myProfile.getName() + myProfile.getPhoneNum());
 
         channel.shutdown();
+        * */
 
 
         projectFragment = ProjectFragment.newInstance();
@@ -119,117 +120,9 @@ public class MainActivity extends AppCompatActivity {
         loadFragment(projectFragment);
         Util.immerseStatusBar(this);
         setupNavBar();
-        try {
-            testMqtt();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
     }
 
 
-    private void testMqtt() throws URISyntaxException {
-        mqtt = new MQTT();
-        mqtt.setHost("47.100.39.201", 61613);
-        mqtt.setVersion("3.1");
-        mqtt.setUserName("admin");
-        mqtt.setPassword("password");
-        String TAG = "tag--->>>";
-        Log.e(TAG, "test");
-
-        connection = mqtt.callbackConnection();
-
-        //设置监听
-        connection.listener(new ExtendedListener() {
-            @Override
-            public void onPublish(UTF8Buffer topic, Buffer body, Callback<Callback<Void>> ack) {
-                Log.d(TAG, "onPublish " + topic.toString() + " " + body.toString());
-                Log.d(TAG, body.toString().split(":")[1]);
-                String phone = "123";//自己的电话号码
-                if (body.toString().split(":")[1].equals(" " + phone)){
-                    Log.d(TAG, "onPublish " + topic.toString() + " " + body.toString());
-                    String channelId = "notification_simple";
-                    NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                    NotificationChannel channel = new NotificationChannel(channelId, "simple", NotificationManager.IMPORTANCE_HIGH);
-                    assert manager != null;
-                    manager.createNotificationChannel(channel);
-                    Notification notification = new NotificationCompat.Builder(MainActivity.this, channelId)
-                            .setContentTitle("新消息")
-                            .setContentText(body.toString())
-                            .setWhen(System.currentTimeMillis())
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setDefaults(Notification.DEFAULT_ALL)
-                            .build();
-                    manager.notify(1, notification);
-                }
-            }
-
-            @Override
-            public void onConnected() {
-                Log.d(TAG, "onConnected");
-            }
-
-            @Override
-            public void onDisconnected() {
-                Log.d(TAG, "onDisconnected");
-            }
-
-            @Override
-            public void onPublish(UTF8Buffer topic, Buffer body, Runnable ack) {
-                Log.d(TAG, "onPublish111 " + topic.toString() + " " + body);
-                ack.run();
-            }
-
-            @Override
-            public void onFailure(Throwable value) {
-                Log.d(TAG, "onFailure");
-            }
-        });
-
-        //连接服务器
-        connection.connect(new Callback<Void>() {
-            @Override
-            public void onFailure(Throwable value) {
-                Log.d(TAG, "connect failure");
-            }
-
-            @Override
-            public void onSuccess(Void v) {
-                //订阅消息
-                Topic[] topics = {new Topic(TOPIC, QoS.AT_LEAST_ONCE)};
-                connection.subscribe(topics, new Callback<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] qoses) {
-                        Log.d(TAG, "subscribe success");
-                    }
-
-                    @Override
-                    public void onFailure(Throwable value) {
-                        Log.e(TAG, "subscribe failure", value);
-                        connection.disconnect(null); //断开连接
-                    }
-                });
-
-            }
-        });
-    }
-
-    public void sendMessage(String message) {
-        //发布一个消息
-        byte[] payload = message.getBytes();
-        String TAG = "tag-->>";
-        connection.publish(TOPIC, payload, QoS.AT_LEAST_ONCE, false, new Callback<Void>() {
-            @Override
-            public void onSuccess(Void v) {
-                Log.d(TAG, "publish success");
-            }
-
-            @Override
-            public void onFailure(Throwable value) {
-                Log.e(TAG, "publish failure", value);
-                connection.disconnect(null); //断开连接
-            }
-        });
-    }
 
 
     private void setupNavBar() {

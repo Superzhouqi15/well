@@ -76,7 +76,7 @@ public class InviteMember extends Fragment {
         member.setPhoneNum("test");
         membersDetailCard.getMembers().add(member);
         membersDetailCard.getAdapter().notifyItemInserted(membersDetailCard.getAdapter().getItemCount());
-        ((MainActivity)getActivity()).sendMessage("Invite you");
+//        ((MainActivity)getActivity()).sendMessage("Invite you");
         if (null != view) {
             assert imm != null;
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);

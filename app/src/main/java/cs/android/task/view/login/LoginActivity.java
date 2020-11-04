@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public String Login(String phoneNum, String passwd) {
+        /*
         ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port)
                 .usePlaintext().build();
         LoginServiceGrpc.LoginServiceBlockingStub blockingStub = LoginServiceGrpc.newBlockingStub(channel);
@@ -145,7 +146,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         writeFile(2,phoneNum);
 
         channel.shutdown();
-        return token.getToken();
+
+         */
+        return "123";
     }
 
 

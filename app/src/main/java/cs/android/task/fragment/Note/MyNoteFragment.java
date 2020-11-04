@@ -98,14 +98,13 @@ public class MyNoteFragment extends Fragment {
 
     public void freshNote(){
 
+        /*
         Log.e("e----->", "freshNote: " + host  + " " + port);
         ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port)
                 .usePlaintext().build();
         MessageServiceGrpc.MessageServiceBlockingStub stub = MessageServiceGrpc.newBlockingStub(channel);
 
         Login.Token token = Login.Token.newBuilder().setToken(myProfile.getToken()).build();
-
-
         try{
             myMessage = stub.askMessage(token);
         }catch (StatusRuntimeException e){
@@ -121,6 +120,10 @@ public class MyNoteFragment extends Fragment {
             }
             channel.shutdown();
         }
+
+         */
+
+
 
     }
 
