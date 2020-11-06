@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,16 +51,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static int port = 50050;
     private String myToken;
     private String myPhone;
+    private RadioGroup myRadioGroup;
+    private int userType = 0;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
         MyApplication myApplication = new MyApplication();
         host = myApplication.getHost();
 
         Vertify();
+
+         */
         new Handler().postDelayed((Runnable) () -> {
             setContentView(R.layout.activity_login);
             signin = findViewById(R.id.signin);
@@ -67,11 +74,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             signup.setOnClickListener(this);
             phone = findViewById(R.id.signin_phone);
             password = findViewById(R.id.signin_password);
+            myRadioGroup = findViewById(R.id.login_radioGroup);
+            myRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    switch (checkedId){
+                        case R.id.radio_manager:
+                            userType = 0;
+                            Log.i("---->", "onCheckedChanged: manager");
+                            break;
+                        case R.id.radio_worker:
+                            userType = 1;
+                            Log.i("---->", "onCheckedChanged: worker");
+                            break;
+                        case R.id.radio_user:
+                            userType = 2;
+                            Log.i("---->", "onCheckedChanged: user");
+                            break;
+                    }
+                }
+            });
         },100);
-
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -82,6 +106,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 phone_str = phone.getText().toString();
                 pwd_str = password.getText().toString();
+                if(phone_str.equals(pwd_str)){
+                    Intent profile = new Intent(this, MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("userType", userType);
+                    profile.putExtras(bundle);
+                    Toast.makeText(this,"Sign in Success",Toast.LENGTH_LONG).show();
+                    startActivity(profile);
+                }else{
+                    Toast.makeText(this,"try again",Toast.LENGTH_LONG).show();
+                }
+
+                /*
 
                 if(phone_str.length() != 0 && !" ".equals(phone_str) && phone_str.length() != 0 && !" ".equals(phone_str)){
                     Callable<String> login = () -> Login(phone_str, pwd_str);
@@ -117,6 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 else{
                     Toast.makeText(this,"Input entire messages",Toast.LENGTH_LONG).show();
                }
+                 */
 
                 break;
             case R.id.goToSignup:

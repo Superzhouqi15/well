@@ -99,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
+        int userType = bundle.getInt("userType");
+        Log.e("----->", "onCreate: " + String.valueOf(userType) );
+
 //        setMyToken(bundle.getString("token"));
 
 

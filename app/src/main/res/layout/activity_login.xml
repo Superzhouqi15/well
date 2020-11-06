@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.login.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".view.login.LoginActivity">
 
     <View
-            android:id="@+id/view"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginBottom="550dp"
-            android:background="#2196f3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.26" />
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="550dp"
+        android:background="#2196f3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -42,7 +42,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="250dp"
+        android:layout_marginBottom="150dp"
         android:minHeight="200dp"
         app:cardBackgroundColor="#ffffff"
         app:cardCornerRadius="10dp"
@@ -96,11 +96,11 @@
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signin_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/work_sans"
-                    android:inputType="textPassword"
-                    android:id="@+id/signin_password"/>
+                    android:inputType="textPassword" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -116,9 +116,9 @@
                 app:cornerRadius="20sp" />
 
             <LinearLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -129,13 +129,41 @@
                     android:text="New user? " />
 
                 <TextView
+                    android:id="@+id/goToSignup"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:text="Sign Up"
-                    android:textColor="#2196F3"
-                    android:id="@+id/goToSignup"/>
+                    android:textColor="#2196F3" />
 
             </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/login_radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/radio_button_1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_manager"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:checked="true"
+                    android:text="@string/manager" />
+
+                <RadioButton
+                    android:id="@+id/radio_worker"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:text="@string/worker" />
+
+                <RadioButton
+                    android:id="@+id/radio_user"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:text="@string/user" />
+            </RadioGroup>
         </LinearLayout>
 
 
