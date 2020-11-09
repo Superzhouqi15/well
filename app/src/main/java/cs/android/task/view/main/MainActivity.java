@@ -23,7 +23,6 @@ import cs.android.task.R;
 
 
 import cs.android.task.fragment.Note.MyNoteFragment;
-import cs.android.task.fragment.customer.CustomerFragment;
 import cs.android.task.fragment.friend.FriendFragment;
 import cs.android.task.fragment.profile.ProfileFragment;
 import cs.android.task.fragment.manager.ManagerFragment;
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     private String myToken;
     private FriendFragment friendFragment;
-    private CustomerFragment customerFragment;
     private ScheduleFragment scheduleFragment;
     private ManagerFragment managerFragment;
     private ProfileOuterClass.Profile myProfile;

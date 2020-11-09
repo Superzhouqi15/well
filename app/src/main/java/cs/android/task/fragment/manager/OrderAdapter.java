@@ -86,9 +86,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.createDate.setText(dateFormater.format(orders.get(position).getCreateDate()));
         holder.id.setText(orders.get(position).getID());
 
-
-
-
         delBtn.setOnClickListener(v->{
 
             // RPC call
@@ -116,16 +113,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                     .setAction("confirm", (view) -> {
                         OrderAdapter.this.orders.remove(holder.getAdapterPosition());
                         OrderAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
-                        Order order = orders.get(position);
-                        Log.i("click delbtn", position +  " " );
-                        Log.i("click delbtn", order.getID() +  " " );
                     })
                     .show();
 
         });
 
         sendBtn.setOnClickListener(v->{
-            Log.i("click send", "!!!!!!!!!!!!!!");
             Order order = orders.get(position);
 
             FragmentManager fm = managerFragment.getFragmentManager();
