@@ -27,23 +27,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/leader_bg" />
+                    android:src="@mipmap/more_background" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     app:subtitleTextColor="#ffffff"
-                    app:title="Schedule"
+                    app:title="监控地图"
                     app:titleTextColor="#ffffff" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
+        <ImageView
+            android:paddingTop="130dp"
+            android:paddingHorizontal="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/map"
+            />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/schedule_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/schedule_list"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_schedule"

@@ -65,9 +65,9 @@ public class MyNoteFragment extends Fragment {
         // Inflate the layout for this fragment
         noteList = new ArrayList<>();
         Note note = new Note();
-        note.setContent("hello");
+        note.setContent("你有一条新消息");
         note.setDate(new Date());
-        note.setCommiter("lms");
+        note.setCommiter("user");
         noteList.add(note);
         view = inflater.inflate(R.layout.fragment_my_note, container, false);
         MyApplication myApplication = new MyApplication();

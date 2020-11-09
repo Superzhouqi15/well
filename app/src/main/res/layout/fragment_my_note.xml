@@ -30,7 +30,7 @@
                     app:titleTextColor="#000000"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    app:title="Notification" />
+                    app:title="消息" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
