@@ -9,11 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,20 +74,18 @@ public class ManagerFragment extends Fragment {
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#ffffff"));
         collapsingToolbarLayout.setExpandedTitleColor(Color.parseColor("#ffffff"));
         collapsingToolbarLayout.setContentScrimColor(Color.parseColor("#e16b6b"));
+
         orderList = new ArrayList<>();
-        recyclerView = view.findViewById(R.id.projects_list);
+        recyclerView = view.findViewById(R.id.order_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new OrderAdapter(orderList, this);
         recyclerView.setAdapter(adapter);
-        initProjectList();
-        view.findViewById(R.id.watch)
-                .setOnClickListener(this::onWatchClicked);
-        adapter.notifyItemRangeInserted(0, 2);
-        adapter.notifyDataSetChanged();
-        int t = ((MainActivity)getActivity()).getType();
-        Log.e("--->", "onCreateView: " + String.valueOf(t));
 
+        initProjectList();
+
+        view.findViewById(R.id.add)
+                .setOnClickListener(this::onFABClick);
 
         return view;
     }
@@ -101,23 +104,28 @@ public class ManagerFragment extends Fragment {
 
         orderList.add(order1);
         orderList.add(order2);
+
+        adapter.notifyItemRangeInserted(0, 2);
+        adapter.notifyDataSetChanged();
     }
 
 
-    public void onWatchClicked(View view) {
-        Log.i("click", "watch");
-        /*
+    // FAB callback
+    public void onFABClick(View view) {
         Bundle bundle = new Bundle();
-
+        View orderlist = getView().findViewById(R.id.order_list);
+        orderlist.setClickable(false);
         CreateDialog dialog = CreateDialog.newInstance(bundle);
         FragmentManager fm = getFragmentManager();
+        fm.addOnBackStackChangedListener(() -> {
+            orderlist.setClickable(true);
+        });
         assert fm != null;
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.add(R.id.fragment_layout, dialog);
         transaction.addToBackStack(null);
         transaction.commit();
-         */
     }
 
     public List<Order> getOrderList (){

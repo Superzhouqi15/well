@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -66,17 +68,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             sendBtn.setText(sendBtnText);
         }
 
-
-
-        private void delBtn(View view) {
-
-            /*
-            完成按钮
-             */
-            OrderAdapter.this.orders.remove(this.getAdapterPosition());
-            OrderAdapter.this.notifyItemRemoved(this.getAdapterPosition());
-        }
-
     }
 
 
@@ -90,7 +81,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder,int position) {
+    public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder, int position) {
         holder.location.setText(orders.get(position).getLocation());
         holder.createDate.setText(dateFormater.format(orders.get(position).getCreateDate()));
         holder.id.setText(orders.get(position).getID());
@@ -99,9 +90,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
 
         delBtn.setOnClickListener(v->{
-            Order order = orders.get(position);
-            Log.i("click delbtn", position +  " " );
-            Log.i("click delbtn", order.getID() +  " " );
 
             // RPC call
             /*
@@ -123,12 +111,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                 Toast.makeText(projectFragment.getContext(),"Del project fail",Toast.LENGTH_LONG).show();
             }
             */
-            OrderAdapter.this.orders.remove(holder.getAdapterPosition());
-            OrderAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+            Log.i("click del", "!!!!!!!!!!!!!!");
+            Snackbar.make(managerFragment.getView(), "Do you really want to delete it?", Snackbar.LENGTH_SHORT)
+                    .setAction("confirm", (view) -> {
+                        OrderAdapter.this.orders.remove(holder.getAdapterPosition());
+                        OrderAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                        Order order = orders.get(position);
+                        Log.i("click delbtn", position +  " " );
+                        Log.i("click delbtn", order.getID() +  " " );
+                    })
+                    .show();
 
         });
 
         sendBtn.setOnClickListener(v->{
+            Log.i("click send", "!!!!!!!!!!!!!!");
             Order order = orders.get(position);
 
             FragmentManager fm = managerFragment.getFragmentManager();

@@ -38,7 +38,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/watch"
+            android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -47,11 +47,11 @@
             app:fabSize="normal"
             android:layout_gravity="bottom|end"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-            app:srcCompat="@drawable/visible" />
+            app:srcCompat="@drawable/add" />
 
             <!--其他卡片可以在这里添加-->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/projects_list"
+                android:id="@+id/order_list"
                 android:layout_width="match_parent"
                 android:layout_marginTop="16dp"
                 android:layout_marginHorizontal="16dp"
