@@ -13,6 +13,8 @@
     <string name="manager">管理员</string>
     <string name="worker">工人</string>
     <string name="user">用户</string>
+    <string name="map">地图</string>
+    <string name="order">订单</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

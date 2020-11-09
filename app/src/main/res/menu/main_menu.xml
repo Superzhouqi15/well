@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/project"
-        android:icon="@mipmap/project"
-        android:title="@string/project"/>
-
-
-
-    <item
-        android:id="@+id/friend"
+        android:id="@+id/order"
         android:icon="@mipmap/friends"
-        android:title="@string/friend"/>
+        android:title="@string/order"/>
     <item
-        android:id="@+id/schedule"
+        android:id="@+id/map"
         android:icon="@mipmap/schedule"
-        android:title="@string/schedule"/>
+        android:title="@string/map"/>
     <item
         android:id="@+id/myNote"
         android:icon="@mipmap/notification"

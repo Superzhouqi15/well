@@ -34,9 +34,7 @@ public class ManagerFragment extends Fragment {
     private RecyclerView recyclerView;
     private OrderAdapter adapter;
     private View view;
-    private static String host ;
-    private static int port = 50050;
-    private ProfileOuterClass.Profile myProfile;
+    private int userType;
 
     public ManagerFragment () {
         // Required empty public constructor
@@ -49,18 +47,23 @@ public class ManagerFragment extends Fragment {
         return fragment;
     }
 
+    public int getUserType(){
+        return userType;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.userType = ((MainActivity)getActivity()).getType();
     }
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_project, container, false);
-        myProfile = ((MainActivity)getActivity()).getMyProfile();
-        MyApplication myApplication = new MyApplication();
-        host = myApplication.getHost();
+//        myProfile = ((MainActivity)getActivity()).getMyProfile();
+//        MyApplication myApplication = new MyApplication();
+//        host = myApplication.getHost();
         CollapsingToolbarLayout collapsingToolbarLayout =
                 view.findViewById(R.id.collapsing_toolbar_layout);
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#ffffff"));
@@ -70,13 +73,16 @@ public class ManagerFragment extends Fragment {
         recyclerView = view.findViewById(R.id.projects_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new OrderAdapter(orderList, this, myProfile);
+        adapter = new OrderAdapter(orderList, this);
         recyclerView.setAdapter(adapter);
         initProjectList();
         view.findViewById(R.id.watch)
                 .setOnClickListener(this::onWatchClicked);
         adapter.notifyItemRangeInserted(0, 2);
         adapter.notifyDataSetChanged();
+        int t = ((MainActivity)getActivity()).getType();
+        Log.e("--->", "onCreateView: " + String.valueOf(t));
+
 
         return view;
     }

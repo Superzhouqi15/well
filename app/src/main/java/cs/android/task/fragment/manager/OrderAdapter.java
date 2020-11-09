@@ -20,6 +20,7 @@ import java.util.Locale;
 import cs.android.task.MyApplication;
 import cs.android.task.R;
 import cs.android.task.entity.Order;
+import cs.android.task.view.main.MainActivity;
 import task.ProfileOuterClass;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
@@ -29,17 +30,24 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     private MaterialButton sendBtn;
     private MaterialButton delBtn;
-    private String host ;
-    private int port = 50050;
-    private ProfileOuterClass.Profile myProfile;
+    private String sendBtnText = "派单";
 
 
 
-    public OrderAdapter (List<Order> orders,ManagerFragment managerFragment,ProfileOuterClass.Profile myProfile) {
+    public OrderAdapter (List<Order> orders,ManagerFragment managerFragment) {
         this.orders = orders;
         this.managerFragment = managerFragment;
-        this.myProfile = myProfile;
-
+        switch (managerFragment.getUserType()){
+            case 0:
+                sendBtnText = "派单";
+                break;
+            case 1:
+                sendBtnText = "报告";
+                break;
+            case 2:
+                sendBtnText = "查看";
+                break;
+        }
     }
 
 
@@ -55,8 +63,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             location = (TextView) itemView.findViewById(R.id.order_location);
             sendBtn = (MaterialButton) itemView.findViewById(R.id.order_send_btn);
             delBtn = (MaterialButton) itemView.findViewById(R.id.order_del_btn);
-            MyApplication myApplication = new MyApplication();
-            host = myApplication.getHost();
+            sendBtn.setText(sendBtnText);
         }
 
 

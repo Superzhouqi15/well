@@ -37,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
     private FriendFragment friendFragment;
     private CustomerFragment customerFragment;
     private ScheduleFragment scheduleFragment;
+    private ManagerFragment managerFragment;
     private ProfileOuterClass.Profile myProfile;
     private static String host;
     private int port = 50050;
     public static final String TOPIC = "topic/test";
     private CallbackConnection connection;
     private MyNoteFragment myNoteFragement;
+    private int userType;
 
 
     public String getMyToken() {
@@ -52,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
     public ProfileOuterClass.Profile getMyProfile() {
         return myProfile;
     }
+
+    public int getType() {
+        return userType;
+    }
+    public void setType(int t) {
+        userType = t;
+    }
+
 
 
 
@@ -74,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         int userType = bundle.getInt("userType");
         Log.e("----->", "onCreate: " + String.valueOf(userType) );
+        setType(userType);
 
 //        setMyToken(bundle.getString("token"));
 
@@ -90,11 +101,11 @@ public class MainActivity extends AppCompatActivity {
         channel.shutdown();
         * */
 
-        customerFragment = CustomerFragment.newInstance();
+        managerFragment = ManagerFragment.newInstance();
 
         Util.immerseStatusBar(this);
         setupNavBar();
-        loadFragment(customerFragment);
+        loadFragment(managerFragment);
     }
 
 
@@ -105,13 +116,9 @@ public class MainActivity extends AppCompatActivity {
         nav.setOnNavigationItemSelectedListener(
                 item -> {
                     switch (item.getItemId()) {
-                        case R.id.project:
-                            loadFragment(customerFragment);
-                            return true;
-
-                        case R.id.friend:
-                            friendFragment = FriendFragment.newInstance();
-                            loadFragment(friendFragment);
+                        case R.id.order:
+                            managerFragment = ManagerFragment.newInstance();
+                            loadFragment(managerFragment);
                             return true;
                         case R.id.my:
                             loadFragment(new ProfileFragment());
@@ -120,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                             myNoteFragement = MyNoteFragment.newInstance();
                             loadFragment(myNoteFragement);
                             return true;
-                        case R.id.schedule:
+                        case R.id.map:
                             scheduleFragment = ScheduleFragment.newInstance();
                             loadFragment(scheduleFragment);
                             return true;
