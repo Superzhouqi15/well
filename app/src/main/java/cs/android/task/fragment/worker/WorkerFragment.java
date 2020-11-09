@@ -1,61 +1,45 @@
-package cs.android.task.fragment.projects;
-
-
-import android.animation.Animator;
-
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package cs.android.task.fragment.worker;
 
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import cs.android.task.MyApplication;
 import cs.android.task.R;
-import cs.android.task.entity.Project;
-
-
-import cs.android.task.fragment.projects.creationDialog.CreateDialog;
-
-import cs.android.task.fragment.projects.details.DetailsFragment;
+import cs.android.task.entity.Order;
 import cs.android.task.view.main.MainActivity;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import task.Login;
 import task.ProfileOuterClass;
-import task.ProjectOuterClass;
-import task.ProjectServiceGrpc;
 
-public class ProjectFragment extends Fragment {
+public class ManagerFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
-    private List<Project> projectList;
+    private List<Order> orderList;
     private RecyclerView recyclerView;
-    private ProjectAdapter adapter;
+    private OrderAdapter adapter;
     private View view;
     private static String host ;
     private static int port = 50050;
     private ProfileOuterClass.Profile myProfile;
 
-    public ProjectFragment() {
+    public ManagerFragment () {
         // Required empty public constructor
     }
 
-    public static ProjectFragment newInstance() {
-        ProjectFragment fragment = new ProjectFragment();
+    public static ManagerFragment newInstance() {
+        ManagerFragment fragment = new ManagerFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -78,44 +62,41 @@ public class ProjectFragment extends Fragment {
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#ffffff"));
         collapsingToolbarLayout.setExpandedTitleColor(Color.parseColor("#ffffff"));
         collapsingToolbarLayout.setContentScrimColor(Color.parseColor("#e16b6b"));
-        projectList = new ArrayList<>();
+        orderList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.projects_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ProjectAdapter(projectList, this, myProfile);
+        adapter = new OrderAdapter(orderList, this, myProfile);
         recyclerView.setAdapter(adapter);
-        //initProjectList();
-        view.findViewById(R.id.add)
-                .setOnClickListener(this::setAdd);
+        initProjectList();
+        view.findViewById(R.id.watch)
+                .setOnClickListener(this::onWatchClicked);
         adapter.notifyItemRangeInserted(0, 2);
         adapter.notifyDataSetChanged();
-
-
 
         return view;
     }
 
-
-
+    // for debug
     private void initProjectList() {
-        Project project_1 = new Project();
-        project_1.setCreateDate(new Date());
-        project_1.setLeaderName("Leader Name");
-        project_1.setName("Project one");
+        Order order1 = new Order();
+        order1.setCreateDate(new Date());
+        order1.setID("1");
+        order1.setLocation("SCNU");
 
-        Project project_2 = new Project();
-        project_2.setCreateDate(new Date());
-        project_2.setLeaderName("Leader Name");
-        project_2.setName("Project two");
+        Order order2 = new Order();
+        order2.setCreateDate(new Date());
+        order2.setID("2");
+        order2.setLocation("SCNU");
 
-        projectList.add(project_1);
-        projectList.add(project_2);
-
-
+        orderList.add(order1);
+        orderList.add(order2);
     }
 
 
-    public void setAdd(View view) {
+    public void onWatchClicked(View view) {
+        Log.i("click", "watch");
+        /*
         Bundle bundle = new Bundle();
 
         CreateDialog dialog = CreateDialog.newInstance(bundle);
@@ -126,13 +107,14 @@ public class ProjectFragment extends Fragment {
         transaction.add(R.id.fragment_layout, dialog);
         transaction.addToBackStack(null);
         transaction.commit();
+         */
     }
 
-    public List<Project> getProjectList(){
-        return projectList;
+    public List<Order> getOrderList (){
+        return this.orderList;
     }
 
-    public ProjectAdapter getAdapter(){
+    public OrderAdapter getAdapter(){
         return adapter;
     }
 }
