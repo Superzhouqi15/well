@@ -1,13 +1,10 @@
-package cs.android.task.fragment.projects;
+package cs.android.task.fragment.manager;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -22,24 +19,15 @@ import java.util.Locale;
 
 import cs.android.task.MyApplication;
 import cs.android.task.R;
-import cs.android.task.entity.Friend;
-import cs.android.task.entity.Project;
-import cs.android.task.fragment.projects.details.DetailsFragment;
-import cs.android.task.view.main.MainActivity;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import task.Login;
+import cs.android.task.entity.Order;
 import task.ProfileOuterClass;
-import task.ProjectOuterClass;
-import task.ProjectServiceGrpc;
 
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder> {
-    private ProjectFragment projectFragment;
-    private List<Project> projects;
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
+    private ManagerFragment managerFragment;
+    private List<Order> orders;
     private SimpleDateFormat dateFormater = new SimpleDateFormat("MM月dd日", Locale.CHINA);
 
-    private MaterialButton entBtn;
-    private MaterialButton doneBtn;
+    private MaterialButton sendBtn;
     private MaterialButton delBtn;
     private String host ;
     private int port = 50050;
@@ -47,40 +35,39 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
 
 
 
-    public ProjectAdapter(List<Project> projects, ProjectFragment projectFragment, ProfileOuterClass.Profile myProfile) {
-        this.projects = projects;
-        this.projectFragment = projectFragment;
+    public OrderAdapter (List<Order> orders,ManagerFragment managerFragment,ProfileOuterClass.Profile myProfile) {
+        this.orders = orders;
+        this.managerFragment = managerFragment;
         this.myProfile = myProfile;
 
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView name;
+        private TextView location;
         private TextView createDate;
-        private TextView leaderName;
+        private TextView id;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.project_name);
-            createDate = (TextView) itemView.findViewById(R.id.created_date);
-            leaderName = (TextView) itemView.findViewById(R.id.leader_name);
-            entBtn = (MaterialButton) itemView.findViewById(R.id.card_enter_btn);
-            doneBtn = (MaterialButton) itemView.findViewById(R.id.card_done_btn);
-            delBtn = (MaterialButton) itemView.findViewById(R.id.card_del_btn);
+            id = (TextView) itemView.findViewById(R.id.order_id);
+            createDate = (TextView) itemView.findViewById(R.id.order_created_date);
+            location = (TextView) itemView.findViewById(R.id.order_location);
+            sendBtn = (MaterialButton) itemView.findViewById(R.id.order_send_btn);
+            delBtn = (MaterialButton) itemView.findViewById(R.id.order_del_btn);
             MyApplication myApplication = new MyApplication();
             host = myApplication.getHost();
         }
 
 
 
-        private void doneBtn(View view) {
+        private void delBtn(View view) {
 
             /*
             完成按钮
              */
-            ProjectAdapter.this.projects.remove(this.getAdapterPosition());
-            ProjectAdapter.this.notifyItemRemoved(this.getAdapterPosition());
+            OrderAdapter.this.orders.remove(this.getAdapterPosition());
+            OrderAdapter.this.notifyItemRemoved(this.getAdapterPosition());
         }
 
     }
@@ -89,27 +76,28 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
 
     @NonNull
     @Override
-    public ProjectAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OrderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.project_card, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProjectAdapter.ViewHolder holder, int position) {
-        holder.name.setText(projects.get(position).getName());
-        holder.createDate.setText(dateFormater.format(projects.get(position).getCreateDate()));
-        holder.leaderName.setText(projects.get(position).getLeaderName());
+    public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder,int position) {
+        holder.location.setText(orders.get(position).getLocation());
+        holder.createDate.setText(dateFormater.format(orders.get(position).getCreateDate()));
+        holder.id.setText(orders.get(position).getID());
 
 
 
 
         delBtn.setOnClickListener(v->{
-            Project project = projects.get(position);
-            Log.e("e----------------?>>>>", position +  " " );
-            Log.e("id----------------?>>>>", project.getId() +  " " );
+            Order order = orders.get(position);
+            Log.i("click delbtn", position +  " " );
+            Log.i("click delbtn", order.getID() +  " " );
 
-
+            // RPC call
+            /*
             ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port)
                     .usePlaintext().build();
             ProjectServiceGrpc.ProjectServiceBlockingStub blockingStub = ProjectServiceGrpc.newBlockingStub(channel);
@@ -127,37 +115,40 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
             else{
                 Toast.makeText(projectFragment.getContext(),"Del project fail",Toast.LENGTH_LONG).show();
             }
-
-            ProjectAdapter.this.projects.remove(holder.getAdapterPosition());
-            ProjectAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+            */
+            OrderAdapter.this.orders.remove(holder.getAdapterPosition());
+            OrderAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
 
         });
 
-        entBtn.setOnClickListener(v->{
-            Project project = projects.get(position);
+        sendBtn.setOnClickListener(v->{
+            Order order = orders.get(position);
 
-            FragmentManager fm = projectFragment.getFragmentManager();
+            FragmentManager fm = managerFragment.getFragmentManager();
             FragmentTransaction transaction = fm.beginTransaction();
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
-            DetailsFragment detailsFragment = new DetailsFragment();
+            // open detail dialog fragment
+            /*
+            DetailsFragment detailsFragment = DetailsFragment.newInstance();
             Bundle args = new Bundle();
 
-            args.putString("leaderName", project.getLeaderName());
-            args.putString("leaderPhone", project.getLeaderPhone());
-            args.putString("leaderEmail", project.getLeaderEmail());
+            args.putString("orderId", order.getID());
+            args.putString("orderLocation", order.getLocation());
+            args.putString("orderCreateDate", order.getCreateDate().toString());
             detailsFragment.setArguments(args);
 
             transaction.add(R.id.fragment_layout, detailsFragment);
             transaction.addToBackStack(null);
             transaction.commit();
+             */
         });
 
     }
 
     @Override
     public int getItemCount() {
-        return projects.size();
+        return orders.size();
     }
 
 }

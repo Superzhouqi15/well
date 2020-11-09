@@ -1,68 +1,39 @@
 package cs.android.task.view.main;
 
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
-import android.animation.TimeInterpolator;
-import android.os.Bundle;
-import android.transition.Explode;
 import android.transition.Fade;
-import android.view.MenuItem;
 import android.view.Window;
-import android.widget.Toast;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.fusesource.hawtbuf.Buffer;
-import org.fusesource.hawtbuf.UTF8Buffer;
-import org.fusesource.mqtt.client.Callback;
 import org.fusesource.mqtt.client.CallbackConnection;
-import org.fusesource.mqtt.client.ExtendedListener;
-import org.fusesource.mqtt.client.MQTT;
-import org.fusesource.mqtt.client.QoS;
-import org.fusesource.mqtt.client.Topic;
-
-import java.net.URISyntaxException;
 
 import cs.android.task.MyApplication;
 import cs.android.task.R;
 
 
-import cs.android.task.entity.Friend;
 import cs.android.task.fragment.Note.MyNoteFragment;
+import cs.android.task.fragment.customer.CustomerFragment;
 import cs.android.task.fragment.friend.FriendFragment;
 import cs.android.task.fragment.profile.ProfileFragment;
-import cs.android.task.fragment.projects.ProjectFragment;
+import cs.android.task.fragment.manager.ManagerFragment;
 import cs.android.task.fragment.schedule.ScheduleFragment;
 import cs.android.task.view.Util;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import task.Login;
 import task.ProfileOuterClass;
-import task.ProfileServiceGrpc;
 
 public class MainActivity extends AppCompatActivity {
 
     private String myToken;
     private FriendFragment friendFragment;
-    private ProjectFragment projectFragment;
+    private CustomerFragment customerFragment;
     private ScheduleFragment scheduleFragment;
     private ProfileOuterClass.Profile myProfile;
     private static String host;
@@ -114,12 +85,11 @@ public class MainActivity extends AppCompatActivity {
         channel.shutdown();
         * */
 
+        customerFragment = CustomerFragment.newInstance();
 
-        projectFragment = ProjectFragment.newInstance();
-
-        loadFragment(projectFragment);
         Util.immerseStatusBar(this);
         setupNavBar();
+        loadFragment(customerFragment);
     }
 
 
@@ -131,8 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 item -> {
                     switch (item.getItemId()) {
                         case R.id.project:
-                            projectFragment = ProjectFragment.newInstance();
-                            loadFragment(projectFragment);
+                            loadFragment(customerFragment);
                             return true;
 
                         case R.id.friend:
@@ -158,10 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
     public FriendFragment getFriendFragment() {
         return friendFragment;
-    }
-
-    public ProjectFragment getProjectFragment() {
-        return projectFragment;
     }
 
     public ScheduleFragment getScheduleFragment() {

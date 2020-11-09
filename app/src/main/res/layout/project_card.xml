@@ -21,54 +21,18 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/project_name"
+            <TextView
+                    android:id="@+id/order_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/work_sans_bold"
                     android:freezesText="true"
-                    android:text="PROJECT NAME"
                     android:gravity="center_vertical"
+                    android:text="Order Location"
                     android:textColor="@color/TextColor"
-                    android:textSize="20sp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:gravity="end"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/card_enter_btn"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:enabled="true"
-                    android:text="ENTER"
-                    android:textColor="#673AB7"
-                    android:textSize="10sp"
-                    app:rippleColor="#FF6B54A1" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/card_done_btn"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:enabled="true"
-                    android:text="DONE"
-                    android:textColor="#673AB7"
-                    android:textSize="10sp"
-                    app:rippleColor="#FF6B54A1" />
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/card_del_btn"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:enabled="true"
-                    android:text="del"
-                    android:textColor="#673AB7"
-                    android:textSize="10sp"
-                    app:rippleColor="#FF6B54A1" />
-            </LinearLayout>
+                    android:layout_marginVertical="8dp"
+                    android:textSize="24sp" />
 
         </LinearLayout>
         <View
@@ -85,31 +49,64 @@
             android:layout_height="wrap_content">
 
         <TextView
-                android:id="@+id/created_date"
+                android:id="@+id/order_created_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/time"
                 android:drawablePadding="8dp"
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="center_vertical"
-                android:text="Created Time"
+                android:text="Order Create Date"
                 android:textColor="@color/TextColor"
                 android:textSize="13sp" />
 
 
         <TextView
-                android:id="@+id/leader_name"
+                android:id="@+id/order_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/leader_name"
+                android:drawableStart="@drawable/nature"
                 android:drawablePadding="8dp"
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="center_vertical"
-                android:text="Leader"
+                android:text="order_ID"
                 android:textColor="@color/TextColor"
                 android:textSize="13sp" />
     </LinearLayout>
 
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="end"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="14dp">
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/order_send_btn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:enabled="true"
+                    android:text="派单"
+                    android:textSize="14sp"
+                    app:rippleColor="#FF6B54A1"
+                    app:elevation="5dp"
+                    android:textColor="#673AB7"
+                    android:layout_marginStart="20dp"
+                    />
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/order_del_btn"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:enabled="true"
+                    android:text="删除"
+                    android:textColor="#673AB7"
+                    android:textSize="14sp"
+                    android:layout_marginStart="20dp"
+                    app:rippleColor="#FF6B54A1"
+                    />
+        </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
