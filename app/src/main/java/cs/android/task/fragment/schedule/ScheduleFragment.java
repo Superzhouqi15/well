@@ -86,13 +86,13 @@ public class ScheduleFragment extends Fragment {
     private void initSchedules() {
         Schedule schedule_1 =
                 new Schedule(
-                        "Android class",
+                        "Zijing Road",
                         new Date(2019, 11, 11),
                         "Building of CS",
                         "This is a very\n important class");
         Schedule schedule_2 =
                 new Schedule(
-                        "Software class",
+                        "Westdoor",
                         new Date(2019, 11, 11),
                         "Building of CS",
                         "This is a very very important class of this term");

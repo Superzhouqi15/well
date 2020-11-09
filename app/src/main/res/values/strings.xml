@@ -10,6 +10,9 @@
     <string name="order_by_name">按文件名字排序</string>
     <string name="order_by_date">按修改日期排序</string>
     <string name="only_my_file">只看我的文件</string>
+    <string name="manager">管理员</string>
+    <string name="worker">工人</string>
+    <string name="user">用户</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
