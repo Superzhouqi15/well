@@ -28,14 +28,12 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import task.Login;
 
-import task.LoginServiceGrpc;
 import task.ProfileOuterClass;
 
 import task.ProjectOuterClass;
 import task.ProjectServiceGrpc;
 import cs.android.task.entity.Project;
-import cs.android.task.fragment.projects.ProjectFragment;
-import cs.android.task.view.main.MainActivity;
+import cs.android.task.fragment.manager.ManagerFragment;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -83,7 +81,7 @@ public class CreateDialog extends Fragment {
 
         ((MaterialButton) view.findViewById(R.id.ok)).setOnClickListener(v -> {
             if (CreateProject()) {
-                ProjectFragment projectFragment = ((MainActivity) getActivity()).getProjectFragment();
+                //ManagerFragment managerFragment = ((MainActivity) getActivity()).getManagerFragment();
                 Project newPorject = new Project();
                 newPorject.setCreateDate(new Date());
                 newPorject.setLeaderName(myProfile.getName());
@@ -92,8 +90,8 @@ public class CreateDialog extends Fragment {
                 newPorject.setLeaderPhone(myProfile.getPhoneNum());
                 newPorject.setLeaderName(myProfile.getPhoneNum());
                 newPorject.setLeaderEmail(myProfile.getEmail());
-                projectFragment.getProjectList().add(newPorject);
-                projectFragment.getAdapter().notifyItemInserted(projectFragment.getAdapter().getItemCount());
+                // managerFragment.getOrderList().add(newPorject);
+                //  managerFragment.getAdapter().notifyItemInserted(managerFragment.getAdapter().getItemCount());
                 Toast.makeText(getContext(), "Create project success", Toast.LENGTH_LONG).show();
                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
 

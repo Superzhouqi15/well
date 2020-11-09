@@ -20,11 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import cs.android.task.MyApplication;
 import cs.android.task.R;
 import cs.android.task.entity.Order;
+import cs.android.task.fragment.manager.ManagerFragment;
+import cs.android.task.fragment.manager.OrderAdapter;
 import cs.android.task.view.main.MainActivity;
 import task.ProfileOuterClass;
 
-public class ManagerFragment extends Fragment {
-
+public class WorkerFragment extends ManagerFragment {
     // TODO: Rename and change types of parameters
     private List<Order> orderList;
     private RecyclerView recyclerView;
@@ -34,12 +35,12 @@ public class ManagerFragment extends Fragment {
     private static int port = 50050;
     private ProfileOuterClass.Profile myProfile;
 
-    public ManagerFragment () {
+    public WorkerFragment () {
         // Required empty public constructor
     }
 
-    public static ManagerFragment newInstance() {
-        ManagerFragment fragment = new ManagerFragment();
+    public static WorkerFragment newInstance() {
+        WorkerFragment fragment = new WorkerFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -68,6 +69,7 @@ public class ManagerFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new OrderAdapter(orderList, this, myProfile);
         recyclerView.setAdapter(adapter);
+
         initProjectList();
         view.findViewById(R.id.watch)
                 .setOnClickListener(this::onWatchClicked);

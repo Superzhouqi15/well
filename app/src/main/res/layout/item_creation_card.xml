@@ -16,36 +16,124 @@
             android:layout_width="match_parent"
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginVertical="24dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="井盖故障上报"
+                android:textSize="24sp"
+                android:gravity="center_horizontal"
+                android:textColor="#000000"
+                android:paddingVertical="8dp"
+                android:fontFamily="@font/work_sans_bold"
+                />
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/item_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="井盖编号"
+                android:layout_marginHorizontal="14dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                app:hintAnimationEnabled="true"
                 app:startIconDrawable="@drawable/nature"
                 app:endIconMode="clear_text"
                 >
             <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/item_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#ffffff"
                     />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/item_loc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="井盖位置"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                app:hintAnimationEnabled="true"
                 app:startIconDrawable="@drawable/pin_drop"
                 app:endIconMode="clear_text"
                 >
 
             <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/item_loc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#ffffff"
                     />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="备注内容"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                app:hintAnimationEnabled="true"
+                app:startIconDrawable="@drawable/wysiwyg"
+                app:endIconMode="clear_text"
+                >
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/item_mark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#ffffff"
+                    />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginVertical="14dp"
+                android:layout_marginHorizontal="14dp"
+                android:orientation="vertical"
+                >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:text="环境图片"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/outlinebox"
+                    >
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/photo_camera"
+                        android:scaleX="0.5"
+                        android:scaleY="0.5"
+                        />
+            </FrameLayout>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/order_del_btn"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:enabled="true"
+                android:text="提交"
+                android:textColor="#673AB7"
+                android:textSize="14sp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp"
+                app:rippleColor="#FF6B54A1"
+                />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

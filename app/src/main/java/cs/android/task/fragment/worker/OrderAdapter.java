@@ -1,4 +1,6 @@
-package cs.android.task.fragment.manager;
+package cs.android.task.fragment.worker;
+
+import com.google.android.material.button.MaterialButton;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -6,24 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.button.MaterialButton;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 import cs.android.task.MyApplication;
 import cs.android.task.R;
 import cs.android.task.entity.Order;
 import task.ProfileOuterClass;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
-    private ManagerFragment managerFragment;
+    private WorkerFragment workerFragment;
     private List<Order> orders;
     private SimpleDateFormat dateFormater = new SimpleDateFormat("MM月dd日", Locale.CHINA);
 
@@ -35,9 +34,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
 
 
-    public OrderAdapter (List<Order> orders,ManagerFragment managerFragment,ProfileOuterClass.Profile myProfile) {
+    public OrderAdapter (List<Order> orders,WorkerFragment workerFragment,ProfileOuterClass.Profile myProfile) {
         this.orders = orders;
-        this.managerFragment = managerFragment;
+        this.workerFragment = workerFragment;
         this.myProfile = myProfile;
 
     }
@@ -76,14 +75,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     @NonNull
     @Override
-    public OrderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.project_card, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder,int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder,int position) {
         holder.location.setText(orders.get(position).getLocation());
         holder.createDate.setText(dateFormater.format(orders.get(position).getCreateDate()));
         holder.id.setText(orders.get(position).getID());
@@ -124,7 +123,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         sendBtn.setOnClickListener(v->{
             Order order = orders.get(position);
 
-            FragmentManager fm = managerFragment.getFragmentManager();
+            FragmentManager fm = workerFragment.getFragmentManager();
             FragmentTransaction transaction = fm.beginTransaction();
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 

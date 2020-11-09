@@ -1,4 +1,4 @@
-package cs.android.task.fragment.projects;
+package cs.android.task.fragment.manager;
 
 
 import android.graphics.Color;
