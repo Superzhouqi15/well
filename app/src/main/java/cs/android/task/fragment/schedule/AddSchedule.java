@@ -1,5 +1,7 @@
 package cs.android.task.fragment.schedule;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,11 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.features.ReturnMode;
+import com.esafirm.imagepicker.model.Image;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.Date;
+import java.util.List;
 
 import cs.android.task.R;
 import cs.android.task.entity.Schedule;
@@ -31,6 +38,7 @@ public class AddSchedule extends Fragment {
     private EditText name;
     private EditText location;
     private EditText detail;
+    private ImageView imageView;
 
 
     public AddSchedule() {
@@ -56,6 +64,11 @@ public class AddSchedule extends Fragment {
         name = view.findViewById(R.id.add_schedule_name);
         location = view.findViewById(R.id.add_location_name);
         detail = view.findViewById(R.id.add_detail);
+        imageView = view.findViewById(R.id.imageViewWell);
+        imageView.setOnClickListener(v -> {
+            Log.i("---->", "func: click");
+            ImagePicker.create(this).folderMode(true).returnMode(ReturnMode.ALL).single().start();
+        });
         ((MaterialButton) view.findViewById(R.id.add_ok)).setOnClickListener(v -> {
             addSchedule();
         });
@@ -64,6 +77,21 @@ public class AddSchedule extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, final int resultCode, Intent data) {
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+            // Get a list of picked images
+            List<Image> images = ImagePicker.getImages(data);
+            // or get a single image only
+            Image image = ImagePicker.getFirstImageOrNull(data);
+            Log.i("---->", "uri: "+image.getUri().toString());
+            Log.i("---->", "path: "+image.getPath().toString());
+            Log.i("---->", "name: "+image.getName().toString());
+            imageView.setImageURI(image.getUri());
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 
