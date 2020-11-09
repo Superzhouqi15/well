@@ -60,26 +60,27 @@ public class ScheduleFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
         initSchedules();
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.schedule_list);
-        StaggeredGridLayoutManager layoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new ScheduleAdapter(scheduleList);
-        recyclerView.setAdapter(adapter);
+//        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.schedule_list);
+//        StaggeredGridLayoutManager layoutManager =
+//                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+//        recyclerView.setLayoutManager(layoutManager);
+//        adapter = new ScheduleAdapter(scheduleList);
+//        recyclerView.setAdapter(adapter);
         CollapsingToolbarLayout collapsingToolbarLayout =
                 view.findViewById(R.id.collapsing_toolbar_layout);
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#ffffff"));
         collapsingToolbarLayout.setExpandedTitleColor(Color.parseColor("#ffffff"));
         collapsingToolbarLayout.setContentScrimColor(Color.parseColor("#abc999"));
         collapsingToolbarLayout.setScrimAnimationDuration(300);
-        view.findViewById(R.id.add_schedule).setOnClickListener(v -> {
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction transaction = fm.beginTransaction();
-            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            transaction.add(R.id.fragment_layout, AddSchedule.newInstance());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
+        collapsingToolbarLayout.setScrimsShown(true);
+//        view.findViewById(R.id.add_schedule).setOnClickListener(v -> {
+//            FragmentManager fm = getFragmentManager();
+//            FragmentTransaction transaction = fm.beginTransaction();
+//            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//            transaction.add(R.id.fragment_layout, AddSchedule.newInstance());
+//            transaction.addToBackStack(null);
+//            transaction.commit();
+//        });
         return view;
     }
 
@@ -103,7 +104,7 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void  onResume() {
         Log.e("e---------.>", "onResume: " );
-        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
         super.onResume();
     }
 

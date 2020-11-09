@@ -43,7 +43,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/work_sans_bold"
             android:gravity="center"
-            android:text="nIce"
+            android:text="User Name"
             android:textSize="40sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
